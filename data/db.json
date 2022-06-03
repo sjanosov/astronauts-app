@@ -1,0 +1,28 @@
+{
+  "astronauts": [
+    {
+      "id": 1,
+      "name": "Marika Potrhla",
+      "dateOfBirth": "02. 10. 1888",
+      "superPower": "flying"
+    },
+    {
+      "id": 2,
+      "name": "Antonina Klementina Francesca Doval",
+      "dateOfBirth": "01. 01. 1850",
+      "superPower": "lying"
+    },
+    {
+      "id": 3,
+      "name": "Alejandra Pesco",
+      "dateOfBirth": "05. 09. 1600",
+      "superPower": "speed"
+    },
+    {
+      "id": 5,
+      "name": "Simonka",
+      "dateOfBirth": "2000-07-31",
+      "superPower": "Neveriaca"
+    }
+  ]
+}

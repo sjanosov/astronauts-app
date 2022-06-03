@@ -1,0 +1,78 @@
+@mixin button-reset {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  cursor: pointer;
+}  
+  
+  //Astro list
+  .astro-table {
+    width: 100%;
+    border-collapse: collapse;
+    transition: all 5s ease-in-out;
+    
+
+    tr td, tr th {
+      border: 1px solid #fff;
+      vertical-align: center;
+      padding: 5px 10px;
+    } 
+
+    tr td:nth-child(4), tr td:nth-child(5) {
+      text-align: center;
+    }
+
+    .edit-button {
+      @include button-reset;
+      font-size: 23px;
+      color: burlywood;
+    }
+
+    .remove-button {
+      @include button-reset;
+      font-size: 23px;
+      color: orangered;
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0,0,0,0);
+    border: 0;
+  }
+
+
+  //Spinner
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .spinner-container {
+    position: absolute;
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 10px solid #f3f3f3; /* Light grey */
+      border-top: 10px solid #383636; /* Black */
+      border-radius: 50%;
+      animation: spinner 1.5s linear infinite;
+      position: absolute;
+      right: -21px;
+      top: -96px;
+    }
+  }
+
+  
