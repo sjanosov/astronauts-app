@@ -1,10 +1,10 @@
 import React from 'react'
 
-function AddAstronautForm(props) {
+function EditAstronautForm(props) {
 
     return (
         <div className="astro-form">
-            <h2>Add a new brave astronaut</h2>
+            <h2>Edit a brave astronaut</h2>
             <form onSubmit={props.onSubmit}>
                 <label htmlFor="name">
                     Name:
@@ -12,6 +12,7 @@ function AddAstronautForm(props) {
                         id="name"
                         type="text"
                         name="name"
+                        placeholder={props.name}
                         required
                         value={props.name}
                         onChange={props.onNameChange} />
@@ -51,4 +52,4 @@ function AddAstronautForm(props) {
     )
 }
 
-export default AddAstronautForm
+export default EditAstronautForm

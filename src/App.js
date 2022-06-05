@@ -3,9 +3,9 @@ import logo from './astronaut-look.png';
 import './css/App.scss';
 import AddAstronautForm from './AddAstronautForm'
 import AstronautsList from './AstronautsList'
-import { CSSTransition } from 'react-transition-group';
 import Spinner from './Spinner';
 import './css/astronautsList.scss';
+
 
 
 function App() {
@@ -17,103 +17,104 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [astronaut, setAstronaut] = useState(null);
+  const [isPending, setIsPending] = useState(false);
 
 
-  const handleDelete = (id) =>  {
-   const newAstronauts = astronauts.filter(astronaut => id !== astronaut.id);
-   setAstronauts(newAstronauts);
+  const handleDelete = (id) => {
+    const newAstronauts = astronauts.filter(astronaut => id !== astronaut.id);
+    setAstronauts(newAstronauts);
+    fetch('http://localhost:3001/astronauts/' + id, {
+      method: 'DELETE'
+    }).then(() => {
+      // console.log('new astronaut added')
+    })
+  }
 
-   fetch('http://localhost:3001/astronauts/' + id, {
-    method: 'DELETE'
-  }).then(() => {
-    // console.log('new astronaut added')
-  })
-}
+  const handleEdit = (id) => {
+    let editedAstronaut = astronauts.filter(astronaut => id === astronaut.id)[0];
+    setAstronaut(editedAstronaut);
+    console.log(editedAstronaut)
+    setName(editedAstronaut.name);
+    setBirthDate(editedAstronaut.birthDate);
+    setSuperpower(editedAstronaut.superpower);
+  }
 
-const handleEdit = (id) => {
-  let tmpAstronaut = astronauts.filter(astronaut => id === astronaut.id)[0];
-  setAstronaut(tmpAstronaut);
-  setName(tmpAstronaut.name);
-  setBirthDate(tmpAstronaut.dateOfBirth);
-  setSuperpower(tmpAstronaut.superPower);
-}
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    setIsPending(true);
 
-const handleOnSubmit = (e) => {
-  e.preventDefault();
-  let tmpAstronaut = {id: astronaut.id ? astronaut.id : astronauts.length + 1,
-    name: name,
-    dateOfBirth: birthDate,
-    superPower: superpower}
+    const submittedAstronaut = {
+      name,
+      birthDate,
+      superpower
+    }
 
-  if(tmpAstronaut.id == null){
-    setAstronauts([...astronauts,
-      tmpAstronaut
-    ]);
 
+    if (!astronaut?.id) {
+      const highestId = astronauts.reduce((highestId, currentAstronaut) => highestId > currentAstronaut.id ? highestId : currentAstronaut.id);
+      submittedAstronaut.id = highestId + 1;
       fetch('http://localhost:3001/astronauts', {
-      method: 'POST',
-      headers: { "Content-Type": "application/json"},
-      body: JSON.stringify(tmpAstronaut)
-    }).then(() => {
-      // console.log('new astronaut added')
-    })
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(submittedAstronaut)
+      }).then(() => {
+        setIsPending(false);
+      })
+      setAstronauts([...astronauts, submittedAstronaut]);
+    } else {
+      submittedAstronaut.id = astronaut.id;
+      fetch('http://localhost:3001/astronauts/' + submittedAstronaut.id, {
+        method: 'PATCH',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(submittedAstronaut)
+      }).then(() => {
+        setIsPending(false);
+      })
+      setAstronauts(astronauts.map(astronaut => astronaut.id === submittedAstronaut.id ? submittedAstronaut : astronaut));
+    }
+    setAstronaut(null);
+    setName("");
+    setBirthDate("");
+    setSuperpower("");
   }
-  else{
-    setAstronauts([...astronauts]);
-      fetch('http://localhost:3001/astronauts/' + tmpAstronaut.id, {
-      method: 'PUT',
-      headers: { "Content-Type": "application/json"},
-      body: JSON.stringify(tmpAstronaut)
-    }).then(() => {
-      // console.log('new astronaut added')
-    })
+
+
+
+  function handleNameChange(e) {
+    setName(e.target.value)
   }
-  setName("");
-  setBirthDate("");
-  setSuperpower("");
-}
+  function handleBirthDateChange(e) {
+    setBirthDate(e.target.value)
+  }
+  function handleSuperpowerChange(e) {
+    setSuperpower(e.target.value)
+  }
 
-
-
-function handleNameChange(e) {
-  setName(e.target.value)
-}
-function handleBirthDateChange(e) {
-  setBirthDate(e.target.value)
-}
-function handleSuperpowerChange(e) {
-  setSuperpower(e.target.value)
-}
-
-     
-  
-
-  // const astronautData = require("./db.json")
 
   useEffect(() => {
     setTimeout(() => {
-  fetch('http://localhost:3001/astronauts')
-      .then(res => { //this is just a response object, not the data
-       if(!res.ok) {  //when endpoint is falsy or doesn't exist
-        throw Error('Could not fetch the data for that resource');
-       }
-        return res.json(); //it returns the response object into json object, we get another promise
-      })
-      .then((data) => {
-        setAstronauts(data);
-        setIsLoading(false);
-        setError(null);
-      })
-      .catch(err => {
-        setError(err.message);//network error, if we cannot connect to server
-        setIsLoading(false);
-        
-      })
-    },1000);
-  }, [])
-  
+      fetch('http://localhost:3001/astronauts')
+        .then(res => { //this is just a response object, not the data
+          if (!res.ok) {  //when endpoint is falsy or doesn't exist
+            throw Error('Could not fetch the data for that resource');
+          }
+          return res.json(); //it returns the response object into json object, we get another promise
+        })
+        .then((data) => {
+          setAstronauts(data);
+          setIsLoading(false);
+          setError(null);
+        })
+        .catch(err => {
+          setError(err.message);//network error, if we cannot connect to server
+          setIsLoading(false);
 
- 
+        })
+    }, 1000);
+  }, [])
+
+
+
   return (
     <div className="astro-app">
       <header className="astro-header">
@@ -124,14 +125,15 @@ function handleSuperpowerChange(e) {
           <div className="astro-container">
             {error && <div>{error}</div>}
             <AddAstronautForm onSubmit={handleOnSubmit}
-                              disabled={isLoading}
-                              name={name} 
-                              birthDate={birthDate}
-                              superpower={superpower}
-                              onNameChange={handleNameChange}
-                              onBirthDateChange={handleBirthDateChange}
-                              onSuperpowerChange={handleSuperpowerChange} />
-            {isLoading && <Spinner/>}
+              disabled={isLoading}
+              name={name}
+              birthDate={birthDate}
+              superpower={superpower}
+              onNameChange={handleNameChange}
+              onBirthDateChange={handleBirthDateChange}
+              onSuperpowerChange={handleSuperpowerChange}
+              isPending={isPending} />
+            {isLoading && <Spinner />}
             {astronauts && <AstronautsList astronauts={astronauts} onDeleteChange={handleDelete} onEditChange={handleEdit} />}
           </div>
         </main>

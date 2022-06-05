@@ -3,26 +3,50 @@
     {
       "id": 1,
       "name": "Marika Potrhla",
-      "dateOfBirth": "02. 10. 1888",
-      "superPower": "flying"
+      "birthDate": "02. 10. 1888",
+      "superpower": "flying"
     },
     {
       "id": 2,
       "name": "Antonina Klementina Francesca Doval",
-      "dateOfBirth": "01. 01. 1850",
-      "superPower": "lying"
+      "birthDate": "01. 01. 1850",
+      "superpower": "lying"
     },
     {
       "id": 3,
       "name": "Alejandra Pesco",
-      "dateOfBirth": "05. 09. 1600",
-      "superPower": "speed"
+      "birthDate": "05. 09. 1600",
+      "superpower": "speed"
     },
     {
-      "id": 5,
       "name": "Simonka",
-      "dateOfBirth": "2000-07-31",
-      "superPower": "Neveriaca"
+      "birthDate": "2022-06-29",
+      "superpower": "Neveriaca",
+      "id": 4
+    },
+    {
+      "name": "Alex",
+      "birthDate": "2022-06-24",
+      "superpower": "Velky",
+      "id": 5
+    },
+    {
+      "id": 7,
+      "name": "Roman",
+      "birthDate": "2022-06-23",
+      "superpower": "Sikulka"
+    },
+    {
+      "id": 8,
+      "name": "Simona",
+      "birthDate": "2022-06-28",
+      "superpower": "Nervna"
+    },
+    {
+      "name": "Alejandra Pesco",
+      "birthDate": "2022-06-14",
+      "superpower": "Zlobr",
+      "id": 9
     }
   ]
 }
