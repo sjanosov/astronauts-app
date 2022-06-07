@@ -4,7 +4,7 @@ import { faPenFancy, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 
-export default function AstronautsList(props) {
+export default function AstronautsList(props: any) {
     return (
         <div>
             <table className="astro-table">

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import logo from './astronaut-look.png';
 import './css/App.scss';
 import AddAstronautForm from './AddAstronautForm'
 import AstronautsList from './AstronautsList'
@@ -18,7 +17,7 @@ function App() {
   const [error, setError] = useState(null);
   const [astronaut, setAstronaut] = useState(null);
   const [isPending, setIsPending] = useState(false);
-
+  const Logo = require('./astronaut-logo.png')
 
   const handleDelete = (id) => {
     const newAstronauts = astronauts.filter(astronaut => id !== astronaut.id);
@@ -118,7 +117,7 @@ function App() {
   return (
     <div className="astro-app">
       <header className="astro-header">
-        <img src={logo} className="astro-img" alt="astronaut image" />
+        <img src={Logo} className="astro-img" alt="astronaut image" />
       </header>
       <body>
         <main>
