@@ -1,26 +1,27 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './css/App.scss';
 import AddAstronautForm from './AddAstronautForm'
 import AstronautsList from './AstronautsList'
 import Spinner from './Spinner';
 import './css/astronautsList.scss';
+import { Astronaut } from './types/Astronaut';
 
 
 
 function App() {
-  const [astronauts, setAstronauts] = useState(null);
+  const [astronauts, setAstronauts] = useState<Astronaut[]>([]);
   const [showAstronautsList, setShowAstronautsList] = useState(false);
   const [name, setName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [superpower, setSuperpower] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [astronaut, setAstronaut] = useState(null);
+  const [astronaut, setAstronaut] = useState<Astronaut>();
   const [isPending, setIsPending] = useState(false);
-  const Logo = require('./astronaut-logo.png')
 
-  const handleDelete = (id) => {
-    const newAstronauts = astronauts.filter(astronaut => id !== astronaut.id);
+
+  const handleDelete = (id: number) => {
+    const newAstronauts = astronauts?.filter(astronaut => id !== astronaut.id);
     setAstronauts(newAstronauts);
     fetch('http://localhost:3001/astronauts/' + id, {
       method: 'DELETE'
@@ -29,7 +30,7 @@ function App() {
     })
   }
 
-  const handleEdit = (id) => {
+  const handleEdit = (id: number) => {
     let editedAstronaut = astronauts.filter(astronaut => id === astronaut.id)[0];
     setAstronaut(editedAstronaut);
     console.log(editedAstronaut)
@@ -38,19 +39,20 @@ function App() {
     setSuperpower(editedAstronaut.superpower);
   }
 
-  const handleOnSubmit = (e) => {
+  const handleOnSubmit = (e: React.BaseSyntheticEvent) => {
     e.preventDefault();
     setIsPending(true);
 
-    const submittedAstronaut = {
+    const submittedAstronaut:Astronaut = {
       name,
       birthDate,
-      superpower
+      superpower,
+      id:0
     }
 
 
     if (!astronaut?.id) {
-      const highestId = astronauts.reduce((highestId, currentAstronaut) => highestId > currentAstronaut.id ? highestId : currentAstronaut.id);
+      const highestId = astronauts.reduce((highestId, currentAstronaut) => highestId > currentAstronaut.id ? highestId : currentAstronaut.id, 0);
       submittedAstronaut.id = highestId + 1;
       fetch('http://localhost:3001/astronauts', {
         method: 'POST',
@@ -70,8 +72,9 @@ function App() {
         setIsPending(false);
       })
       setAstronauts(astronauts.map(astronaut => astronaut.id === submittedAstronaut.id ? submittedAstronaut : astronaut));
+      console.log(astronauts.map(astronaut => astronaut.id === submittedAstronaut.id ? submittedAstronaut : astronaut))
     }
-    setAstronaut(null);
+    setAstronaut(undefined);
     setName("");
     setBirthDate("");
     setSuperpower("");
@@ -79,13 +82,13 @@ function App() {
 
 
 
-  function handleNameChange(e) {
+  function handleNameChange(e: React.BaseSyntheticEvent) {
     setName(e.target.value)
   }
-  function handleBirthDateChange(e) {
+  function handleBirthDateChange(e: React.BaseSyntheticEvent) {
     setBirthDate(e.target.value)
   }
-  function handleSuperpowerChange(e) {
+  function handleSuperpowerChange(e: React.BaseSyntheticEvent) {
     setSuperpower(e.target.value)
   }
 
@@ -117,27 +120,27 @@ function App() {
   return (
     <div className="astro-app">
       <header className="astro-header">
-        <img src={Logo} className="astro-img" alt="astronaut image" />
-      </header>
-      <body>
-        <main>
-          <div className="astro-container">
-            {error && <div>{error}</div>}
-            <AddAstronautForm onSubmit={handleOnSubmit}
-              disabled={isLoading}
-              name={name}
-              birthDate={birthDate}
-              superpower={superpower}
-              onNameChange={handleNameChange}
-              onBirthDateChange={handleBirthDateChange}
-              onSuperpowerChange={handleSuperpowerChange}
-              isPending={isPending} />
-            {isLoading && <Spinner />}
-            {astronauts && <AstronautsList astronauts={astronauts} onDeleteChange={handleDelete} onEditChange={handleEdit} />}
-          </div>
-        </main>
-      </body>
-    </div>
+        {/* <img src={Logo} className="astro-img" alt="astronaut image" /> */}
+    </header> 
+    < body >
+    <main>
+      <div className="astro-container">
+        {error && <div>{error}</div>}
+        <AddAstronautForm onSubmit={handleOnSubmit}
+          disabled={isLoading}
+          name={name}
+          birthDate={birthDate}
+          superpower={superpower}
+          onNameChange={handleNameChange}
+          onBirthDateChange={handleBirthDateChange}
+          onSuperpowerChange={handleSuperpowerChange}
+          isPending={isPending} />
+        {isLoading && <Spinner />}
+        {astronauts && <AstronautsList astronauts={astronauts} onDeleteChange={handleDelete} onEditChange={handleEdit} />}
+      </div>
+    </main>
+      </body >
+    </div >
   );
 }
 

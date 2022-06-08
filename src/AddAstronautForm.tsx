@@ -1,6 +1,9 @@
 import React from 'react'
+import { AddAstronautForm } from './types/AddAstronautForm'
+import { Astronaut } from './types/Astronaut'
 
-function AddAstronautForm(props: any) {
+function AddAstronautForm(props:Astronaut) {
+    
 
     return (
         <div className="astro-form">

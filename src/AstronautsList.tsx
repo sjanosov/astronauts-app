@@ -2,6 +2,7 @@ import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenFancy, faXmark } from '@fortawesome/free-solid-svg-icons'
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { Astronaut } from './types/Astronaut';
 
 
 export default function AstronautsList(props: any) {
@@ -29,7 +30,7 @@ export default function AstronautsList(props: any) {
 
                 </thead>
                 <TransitionGroup component="tbody">
-                    {props.astronauts.map((astronaut => (
+                    {props.astronauts.map(((astronaut:Astronaut) => (
                          <CSSTransition key={astronaut.id} timeout={700} classNames="item">
                         <tr key={astronaut.id}>
                             <td>
