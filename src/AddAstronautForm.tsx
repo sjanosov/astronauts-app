@@ -1,8 +1,19 @@
-import React from 'react'
-import { AddAstronautForm } from './types/AddAstronautForm'
-import { Astronaut } from './types/Astronaut'
+import React, { ChangeEventHandler, FormEventHandler } from 'react'
 
-function AddAstronautForm(props:Astronaut) {
+export type AddAstronautFormProps = {
+    
+    onSubmit: FormEventHandler<HTMLFormElement>;
+    onNameChange: ChangeEventHandler<HTMLInputElement>;
+    name: string;
+    superpower: string;
+    onSuperpowerChange: ChangeEventHandler<HTMLInputElement>;
+    birthDate: string;
+    onBirthDateChange: ChangeEventHandler<HTMLInputElement>;
+    isPending: boolean;
+    disabled: boolean;
+}
+
+function AddAstronautForm(props:AddAstronautFormProps) {
     
 
     return (

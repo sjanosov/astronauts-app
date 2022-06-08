@@ -4,19 +4,19 @@ import AddAstronautForm from './AddAstronautForm'
 import AstronautsList from './AstronautsList'
 import Spinner from './Spinner';
 import './css/astronautsList.scss';
-import { Astronaut } from './types/Astronaut';
+import { AstronautType } from './types/AstronautType';
+import Logo from './astronaut-look.png'
 
 
 
 function App() {
-  const [astronauts, setAstronauts] = useState<Astronaut[]>([]);
-  const [showAstronautsList, setShowAstronautsList] = useState(false);
+  const [astronauts, setAstronauts] = useState<AstronautType[]>([]);
   const [name, setName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
+  const [birthDate, setBirthDate] = useState<Date>();
   const [superpower, setSuperpower] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [astronaut, setAstronaut] = useState<Astronaut>();
+  const [astronaut, setAstronaut] = useState<AstronautType>();
   const [isPending, setIsPending] = useState(false);
 
 
@@ -25,9 +25,12 @@ function App() {
     setAstronauts(newAstronauts);
     fetch('http://localhost:3001/astronauts/' + id, {
       method: 'DELETE'
-    }).then(() => {
-      // console.log('new astronaut added')
+    }).then((response) => {
+      console.log(response)
     })
+    .catch(err =>
+      console.log(err)
+    )
   }
 
   const handleEdit = (id: number) => {
@@ -43,16 +46,20 @@ function App() {
     e.preventDefault();
     setIsPending(true);
 
-    const submittedAstronaut:Astronaut = {
+    const submittedAstronaut: AstronautType = {
       name,
       birthDate,
       superpower,
-      id:0
+      id: 0
     }
 
-
     if (!astronaut?.id) {
-      const highestId = astronauts.reduce((highestId, currentAstronaut) => highestId > currentAstronaut.id ? highestId : currentAstronaut.id, 0);
+      let highestId = 0;
+      for (let astronautRec of astronauts) {
+        if (astronautRec.id > highestId) {
+          highestId = astronautRec.id;
+        }
+      }
       submittedAstronaut.id = highestId + 1;
       fetch('http://localhost:3001/astronauts', {
         method: 'POST',
@@ -76,7 +83,7 @@ function App() {
     }
     setAstronaut(undefined);
     setName("");
-    setBirthDate("");
+    setBirthDate(undefined);
     setSuperpower("");
   }
 
@@ -120,25 +127,24 @@ function App() {
   return (
     <div className="astro-app">
       <header className="astro-header">
-        {/* <img src={Logo} className="astro-img" alt="astronaut image" /> */}
-    </header> 
-    < body >
-    <main>
-      <div className="astro-container">
-        {error && <div>{error}</div>}
-        <AddAstronautForm onSubmit={handleOnSubmit}
-          disabled={isLoading}
-          name={name}
-          birthDate={birthDate}
-          superpower={superpower}
-          onNameChange={handleNameChange}
-          onBirthDateChange={handleBirthDateChange}
-          onSuperpowerChange={handleSuperpowerChange}
-          isPending={isPending} />
-        {isLoading && <Spinner />}
-        {astronauts && <AstronautsList astronauts={astronauts} onDeleteChange={handleDelete} onEditChange={handleEdit} />}
-      </div>
-    </main>
+        <img src={Logo} className="astro-img" alt="astronaut image" />
+      </header>
+      < body >
+        <main>
+          <div className="astro-container">
+            {error && <div>{error}</div>}
+            <AddAstronautForm onSubmit={handleOnSubmit}
+              disabled={isLoading}
+              name={name}
+              birthDate={birthDate ? birthDate.toString() : ""}
+              superpower={superpower}
+              onNameChange={handleNameChange}
+              onBirthDateChange={handleBirthDateChange}
+              onSuperpowerChange={handleSuperpowerChange}
+              isPending={isPending} />
+            {astronauts && !isLoading ? <AstronautsList astronauts={astronauts} onDeleteChange={handleDelete} onEditChange={handleEdit} /> : <Spinner />}
+          </div>
+        </main>
       </body >
     </div >
   );

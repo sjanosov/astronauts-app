@@ -37,16 +37,10 @@
       "superpower": "Sikulka"
     },
     {
-      "id": 8,
-      "name": "Simona",
-      "birthDate": "2022-06-28",
-      "superpower": "Nervna"
-    },
-    {
-      "name": "Alejandra Pesco",
-      "birthDate": "2022-06-14",
-      "superpower": "Zlobr",
-      "id": 9
+      "name": "Simonka",
+      "birthDate": "2022-05-23",
+      "superpower": "Neveriaca",
+      "id": 10
     }
   ]
 }
