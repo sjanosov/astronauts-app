@@ -11,7 +11,7 @@ export type AstronautsListProps = {
 
 export default function AstronautsList(props: AstronautsListProps) {
     return (
-        <div>
+        <div className="table-wrapper">
             <TransitionGroup component="table" className="astro-table">
                 <thead>
                     <tr>

@@ -29,18 +29,6 @@
       "birthDate": "2022-06-24",
       "superpower": "Velky",
       "id": 5
-    },
-    {
-      "id": 7,
-      "name": "Roman",
-      "birthDate": "2022-06-25",
-      "superpower": "Sikul"
-    },
-    {
-      "name": "Adam",
-      "birthDate": "2022-06-23",
-      "superpower": "Project",
-      "id": 8
     }
   ]
 }

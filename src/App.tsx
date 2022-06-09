@@ -8,7 +8,7 @@ import { AstronautType } from './types/AstronautType';
 import Logo from './astronaut-look.png'
 import { APP_PROD_URL, APP_DEV_URL, devEnv } from './constants/constants';
 
-
+console.log(APP_DEV_URL)
 
 function App() {
   const [astronauts, setAstronauts] = useState<AstronautType[]>([]);
