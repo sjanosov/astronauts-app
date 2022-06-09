@@ -6,6 +6,7 @@ import Spinner from './Spinner';
 import './css/astronautsList.scss';
 import { AstronautType } from './types/AstronautType';
 import Logo from './astronaut-look.png'
+import { APP_PROD_URL, APP_DEV_URL, devEnv } from './constants/constants';
 
 
 
@@ -19,11 +20,11 @@ function App() {
   const [astronaut, setAstronaut] = useState<AstronautType>();
   const [isPending, setIsPending] = useState(false);
 
-
+  
   const handleDelete = (id: number) => {
     const newAstronauts = astronauts?.filter(astronaut => id !== astronaut.id);
     setAstronauts(newAstronauts);
-    fetch('http://localhost:3001/astronauts/' + id, {
+    fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}/${id}`, {
       method: 'DELETE'
     }).then((response) => {
       console.log(response)
@@ -52,7 +53,7 @@ function App() {
       superpower,
       id: 0
     }
-
+    
     if (!astronaut?.id) {
       let highestId = 0;
       for (let astronautRec of astronauts) {
@@ -61,7 +62,8 @@ function App() {
         }
       }
       submittedAstronaut.id = highestId + 1;
-      fetch('http://localhost:3001/astronauts', {
+      
+      fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submittedAstronaut)
@@ -71,7 +73,7 @@ function App() {
       setAstronauts([...astronauts, submittedAstronaut]);
     } else {
       submittedAstronaut.id = astronaut.id;
-      fetch('http://localhost:3001/astronauts/' + submittedAstronaut.id, {
+      fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}/${submittedAstronaut.id}`, {
         method: 'PATCH',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submittedAstronaut)
@@ -102,7 +104,7 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch('http://localhost:3001/astronauts')
+      fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}`)
         .then(res => { //this is just a response object, not the data
           if (!res.ok) {  //when endpoint is falsy or doesn't exist
             throw Error('Could not fetch the data for that resource');

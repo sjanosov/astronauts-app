@@ -33,14 +33,14 @@
     {
       "id": 7,
       "name": "Roman",
-      "birthDate": "2022-06-23",
-      "superpower": "Sikulka"
+      "birthDate": "2022-06-25",
+      "superpower": "Sikul"
     },
     {
-      "name": "Simonka",
-      "birthDate": "2022-05-23",
-      "superpower": "Neveriaca",
-      "id": 10
+      "name": "Adam",
+      "birthDate": "2022-06-23",
+      "superpower": "Project",
+      "id": 8
     }
   ]
 }
