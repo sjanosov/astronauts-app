@@ -24,7 +24,7 @@ function App() {
   const handleDelete = (id: number) => {
     const newAstronauts = astronauts?.filter(astronaut => id !== astronaut.id);
     setAstronauts(newAstronauts);
-    fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}/${id}`, {
+    fetch(`https://astronauts-api-project.herokuapp.com/astronauts/${id}`, {
       method: 'DELETE'
     }).then((response) => {
       console.log(response)
@@ -63,7 +63,7 @@ function App() {
       }
       submittedAstronaut.id = highestId + 1;
       
-      fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}`, {
+      fetch("https://astronauts-api-project.herokuapp.com/astronauts", {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submittedAstronaut)
@@ -73,7 +73,7 @@ function App() {
       setAstronauts([...astronauts, submittedAstronaut]);
     } else {
       submittedAstronaut.id = astronaut.id;
-      fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}/${submittedAstronaut.id}`, {
+      fetch(`https://astronauts-api-project.herokuapp.com/astronauts/${submittedAstronaut.id}`, {
         method: 'PATCH',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submittedAstronaut)
@@ -104,7 +104,7 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch(`${devEnv ? APP_DEV_URL : APP_PROD_URL}`)
+      fetch(`https://astronauts-api-project.herokuapp.com/astronauts`)
         .then(res => { //this is just a response object, not the data
           if (!res.ok) {  //when endpoint is falsy or doesn't exist
             throw Error('Could not fetch the data for that resource');
