@@ -50,5 +50,5 @@
     "eslint": "^8.16.0",
     "typescript": "^4.7.3"
   }, 
-  "proxy": "https://astronauts-api-project.herokuapp.com/"
+  "proxy": "http://localhost:3000"
 }
