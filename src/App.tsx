@@ -6,9 +6,8 @@ import Spinner from './Spinner';
 import './css/astronautsList.scss';
 import { AstronautType } from './types/AstronautType';
 import Logo from './astronaut-look.png'
-import { APP_PROD_URL, APP_DEV_URL, devEnv } from './constants/constants';
+import { APP_PROD_URL } from './constants/constants';
 
-console.log(APP_DEV_URL)
 
 function App() {
   const [astronauts, setAstronauts] = useState<AstronautType[]>([]);
@@ -24,7 +23,7 @@ function App() {
   const handleDelete = (id: number) => {
     const newAstronauts = astronauts?.filter(astronaut => id !== astronaut.id);
     setAstronauts(newAstronauts);
-    fetch(`https://astronauts-api-project.herokuapp.com/astronauts/${id}`, {
+    fetch(`${APP_PROD_URL}/${id}`, {
       method: 'DELETE'
     }).then((response) => {
       console.log(response)
@@ -63,7 +62,7 @@ function App() {
       }
       submittedAstronaut.id = highestId + 1;
       
-      fetch("https://astronauts-api-project.herokuapp.com/astronauts", {
+      fetch(`${APP_PROD_URL}`, {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submittedAstronaut)
@@ -73,7 +72,7 @@ function App() {
       setAstronauts([...astronauts, submittedAstronaut]);
     } else {
       submittedAstronaut.id = astronaut.id;
-      fetch(`https://astronauts-api-project.herokuapp.com/astronauts/${submittedAstronaut.id}`, {
+      fetch(`${APP_PROD_URL}/${submittedAstronaut.id}`, {
         method: 'PATCH',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submittedAstronaut)
@@ -104,7 +103,7 @@ function App() {
 
   useEffect(() => {
     setTimeout(() => {
-      fetch(`https://astronauts-api-project.herokuapp.com/astronauts`)
+      fetch(`${APP_PROD_URL}`)
         .then(res => { //this is just a response object, not the data
           if (!res.ok) {  //when endpoint is falsy or doesn't exist
             throw Error('Could not fetch the data for that resource');
