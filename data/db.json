@@ -3,32 +3,26 @@
     {
       "id": 1,
       "name": "Marika Potrhla",
-      "birthDate": "02. 10. 1888",
+      "birthDate": "2022-06-16",
       "superpower": "flying"
     },
     {
       "id": 2,
       "name": "Antonina Klementina Francesca Doval",
-      "birthDate": "01. 01. 1850",
+      "birthDate": "2022-06-24",
       "superpower": "lying"
     },
     {
-      "id": 3,
       "name": "Alejandra Pesco",
-      "birthDate": "05. 09. 1600",
-      "superpower": "speed"
-    },
-    {
-      "name": "Simonka",
-      "birthDate": "2022-06-29",
-      "superpower": "Neveriaca",
-      "id": 4
+      "birthDate": "2022-06-21",
+      "superpower": "Neveriaci",
+      "id": 3
     },
     {
       "name": "Alex",
-      "birthDate": "2022-06-24",
-      "superpower": "Velky",
-      "id": 5
+      "birthDate": "2022-06-16",
+      "superpower": "Neveriaca",
+      "id": 4
     }
   ]
 }

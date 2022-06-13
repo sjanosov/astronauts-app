@@ -8,16 +8,19 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 export type AstronautProps = {
     astronauts: AstronautType[];
     onEditChange: Function;
-    onDeleteChange: Function;
-
+    onDeleteChange: Function; 
 }
 
 function Astronaut(props: AstronautProps) {
     return (
-        <>
+    <TransitionGroup component={null}>
             {props.astronauts.map(((astronaut: AstronautType) => (
-                <CSSTransition key={astronaut.id} timeout={700} classNames="item">
-                    <tr key={astronaut.id}>
+                <CSSTransition
+                    key={astronaut.id}
+                    timeout={300}
+                    classNames="item"
+                >
+                    <tr>
                         <td>
                             {astronaut.name}
                         </td>
@@ -38,7 +41,7 @@ function Astronaut(props: AstronautProps) {
                     </tr>
                 </CSSTransition>
             )))}
-        </>
+       </TransitionGroup>
     )
 }
 

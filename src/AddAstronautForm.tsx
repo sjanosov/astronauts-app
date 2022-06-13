@@ -11,6 +11,7 @@ export type AddAstronautFormProps = {
     onBirthDateChange: ChangeEventHandler<HTMLInputElement>;
     isPending: boolean;
     disabled: boolean;
+    isEditing: boolean;
 }
 
 function AddAstronautForm(props:AddAstronautFormProps) {
@@ -18,7 +19,7 @@ function AddAstronautForm(props:AddAstronautFormProps) {
 
     return (
         <div className="astro-form">
-            <h2>Add a new brave astronaut</h2>
+            {props.isEditing ? <h2>Edit the astronaut</h2> : <h2>Add a new brave astronaut</h2>}
             <form onSubmit={props.onSubmit}>
                 <label htmlFor="name">
                     Name:

@@ -1,5 +1,4 @@
 import React from 'react'
-import { TransitionGroup } from 'react-transition-group';
 import Astronaut from './Astronaut';
 import { AstronautType } from './types/AstronautType';
 
@@ -12,7 +11,7 @@ export type AstronautsListProps = {
 export default function AstronautsList(props: AstronautsListProps) {
     return (
         <div className="table-wrapper">
-            <TransitionGroup component="table" className="astro-table">
+            <table className="astro-table">
                 <thead>
                     <tr>
                         <th>
@@ -33,10 +32,9 @@ export default function AstronautsList(props: AstronautsListProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    <Astronaut astronauts={props.astronauts} onDeleteChange={props.onDeleteChange} onEditChange={props.onEditChange}/>
+                    <Astronaut astronauts={props.astronauts} onDeleteChange={props.onDeleteChange} onEditChange={props.onEditChange} />
                 </tbody>
-            </TransitionGroup>
+            </table>
         </div>
     )
 }
- 
