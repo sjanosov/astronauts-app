@@ -3,8 +3,7 @@ import classNames from 'classnames';
 
 
 function AstronautPopUpPanel(props:any) {
-    console.log(!props.isNotificationShown) 
-
+  
     const cssClassname = classNames("astro-popup-wrapper", {"closed": !props.isNotificationShown}, props.type )
   return (
     <div className={cssClassname}>

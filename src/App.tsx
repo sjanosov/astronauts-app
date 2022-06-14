@@ -42,7 +42,7 @@ function App() {
       )
   }
 
-  const closeNotification = (delay: number) => {
+  function closeNotification(delay: number) {
     setTimeout(() => {
       setIsNotificationShown(false);
     }, delay)
@@ -51,7 +51,6 @@ function App() {
   const handleEdit = (id: number) => {
     let editedAstronaut = astronauts.filter(astronaut => id === astronaut.id)[0];
     setAstronaut(editedAstronaut);
-    console.log(editedAstronaut)
     setName(editedAstronaut.name);
     setBirthDate(editedAstronaut.birthDate);
     setSuperpower(editedAstronaut.superpower);
