@@ -1,5 +1,4 @@
 import React, { ChangeEventHandler, FormEventHandler } from 'react'
-
 export type AddAstronautFormProps = {
     
     onSubmit: FormEventHandler<HTMLFormElement>;
@@ -16,6 +15,9 @@ export type AddAstronautFormProps = {
 
 function AddAstronautForm(props:AddAstronautFormProps) {
     
+    let today = new Date();
+    today.setFullYear(today.getFullYear() - 18);
+    let todayString = today.toISOString().split('T')[0];
 
     return (
         <div className="astro-form">
@@ -47,6 +49,7 @@ function AddAstronautForm(props:AddAstronautFormProps) {
                         id="birth"
                         type="date"
                         name="birth"
+                        max={todayString}
                         required
                         value={props.birthDate}
                         onChange={props.onBirthDateChange} />

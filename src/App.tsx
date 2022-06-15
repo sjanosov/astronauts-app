@@ -23,6 +23,7 @@ function App() {
   const [notifiedAstronaut, setNotifiedAstronaut] = useState<AstronautType>();
   const [notificationType, setNotificationType] = useState("");
   const [isEditing, setIsEditing] = useState(false);
+  const [startDate, setStartDate] = useState<any>();
 
 
   const handleDelete = (id: number) => {
